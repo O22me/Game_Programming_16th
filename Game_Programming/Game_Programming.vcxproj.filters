@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Tree_insert_delete.cpp">
+    <ClCompile Include="20201112_Cpp_start.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

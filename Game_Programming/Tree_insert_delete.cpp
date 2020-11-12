@@ -163,6 +163,7 @@ int main(void) {
 	insertData(&root, 3);
 	insertData(&root, 5);
 	insertData(&root, 7);
+	
 
 	printf("TreeSize : %d\n", TreeSize(root));
 	printAllOrder(root);
