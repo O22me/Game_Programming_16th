@@ -86,23 +86,54 @@ int TreeSize(TreeNode* root) {
 	q.push(root);
 	while (!q.empty()) {
 		TreeNode *popNode = q.front();
-		if (popNode->leftChild != NULL) q.push(root->leftChild);
-		if (popNode->rightChild != NULL) q.push(root->rightChild);
+		if (popNode->leftChild != NULL) q.push(popNode->leftChild);
+		if (popNode->rightChild != NULL) q.push(popNode->rightChild);
 		q.pop();
 		size++;
 	}
 	return size;
 }
 void deleteData(TreeNode *root, element data) { //data 검색 후 삭제
-	removeflag = false;
-	if (root->data == data) {
+	removeflag = false; //NULL처리를 위한 flag이용
+	if (root->data == data) { //삭제대상 노드 발견
 		if (root->leftChild == NULL && root->rightChild == NULL) { //단말 노드인 경우
 			free(root);
 			removeflag = true;
 			return;
 		}
 		else if (root->leftChild != NULL && root->rightChild != NULL) { //자식노드가 둘다 있는 경우
-			
+			if (TreeSize(root->leftChild) >= TreeSize(root->rightChild)) { // 왼서브트리가 더 큰 경우
+				root->data = root->leftChild->data;
+				deleteData(root->leftChild, root->data); //반드시 일치하게 됨.
+				if (removeflag) {
+					root->leftChild = NULL;
+					removeflag = false;
+				}
+			}
+			else { //TreeSize(root->leftChild) < TreeSize(root->rightChild) //오른 서브트리가 더 큰 경우
+				root->data = root->rightChild->data;
+				deleteData(root->rightChild, root->data); //반드시 일치하게 됨.
+				if (removeflag) {
+					root->rightChild = NULL;
+					removeflag = false;
+				}
+			}
+		}
+		else if (root->leftChild != NULL && root->rightChild == NULL) { //왼 자식트리만 있는 경우
+			root->data = root->leftChild->data;
+			deleteData(root->leftChild, root->data);
+			if (removeflag) {
+				root->leftChild = NULL;
+				removeflag = false;
+			}
+		}
+		else if (root->rightChild != NULL && root->leftChild == NULL) { //오른 자식트리만 있는 경우
+			root->data = root->rightChild->data;
+			deleteData(root->rightChild, root->data);
+			if (removeflag) {
+				root->rightChild = NULL;
+				removeflag = false;
+			}
 		}
 	}
 	else { //재귀함수를 통한 delete 실현.
@@ -128,14 +159,14 @@ int main(void) {
 	insertData(&root, 4);
 	insertData(&root, 6);
 	insertData(&root, 2);
-
-	
 	insertData(&root, 1);
 	insertData(&root, 3);
 	insertData(&root, 5);
 	insertData(&root, 7);
-	/**/
+
 	printf("TreeSize : %d\n", TreeSize(root));
+	printAllOrder(root);
+	deleteData(root, 4);
 	
 	printAllOrder(root);
 	return 0;

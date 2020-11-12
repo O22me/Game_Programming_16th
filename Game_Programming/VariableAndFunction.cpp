@@ -53,9 +53,3 @@ int main(void) {
 	GIdxFor10PrintShapeX5_Main();
 	return 0;
 }
-
-
-
-
-
-
