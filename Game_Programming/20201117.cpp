@@ -23,22 +23,24 @@ class CCar
 public: //클래스외부에서 접근을 가능하게 만든다.
 	//생성자: 객체가 생성될때 호출되는 함수.
 	//리턴값없음. 매개변수있음. 디폴트매개변수가능. 오버로딩가능.
-	/*CCar()
+	/*
+	CCar() :MaxSpeed(100) //<-기본생성자
 	{
 		m_nSpeed = 0;
 		m_nGear = 0;
-		m_strColor = "gray";
-	}*/
+	}
+	*/
 	//private: //생성자가 접근이 안되면 메모리를 외부에서 할당할수없다.
 public://초기화 목록: 멤버변수에 초기값을 설정함.
-	CCar(string color = "gray") :MaxSpeed(100) //함수의 오버로딩
+	CCar(string color = "gray") :MaxSpeed(100) //함수의 오버로딩<-기본생성자(괄호 내 string 이 정해져있음)
 	{
 		m_nSpeed = 0;
 		m_nGear = 0;
 		m_strColor = color;
 		cout << "CCar[" << this << "]:" << m_strColor << endl;
 	}
-	CCar(const CCar& car) :MaxSpeed(100)
+	//????
+	CCar(const CCar& car) :MaxSpeed(100) //복사생성자
 	{
 		//*this = car;
 		//memcpy(this, &car, sizeof(CCar)); //문자열객체는 메모리복사가 불가능하다.
@@ -47,6 +49,7 @@ public://초기화 목록: 멤버변수에 초기값을 설정함.
 		this->m_strColor = car.m_strColor;
 		cout << "CCar Copy[" << this << "]:" << m_strColor << endl;
 	}
+	
 
 	//private: //객체가 소멸자에서 
 		//소멸자: 객체가 소멸할때 호출되는 함수.
@@ -84,15 +87,22 @@ public://초기화 목록: 멤버변수에 초기값을 설정함.
 		cout << "Speed:" << m_nSpeed << endl;
 		cout << "Gear:" << m_nGear << endl;
 	}
+public:
+	enum EGEAR { P, R, N, D }; //기어값
 };
 
 //자동차구매 -> 계약서작성(옵션) -> 생산 -> 배달
 void CarMain()
 {
-
 	cout << "CarMain Start" << endl;
-	//주문자가 생선전에 색상을 지정할수있다.
-	CCar cCar("red"); //객체생성(정적할당) //생상자나 소멸자가 외부에서 접근불가면 생성불가.
+	// 자동차 종류(소형, 중형, 대형) 선택.
+	// 옵션(주문자요청) : 색상변경, 크기변경, 타이어변경	, 가격공지			<-기본값을 변경할 것인지에 대한?
+	// 생산 : 색상, 크기(소형, 중형, 대형만 있다고 치자), 타이어 인치
+	// 배달 : 출발지 도착지입력
+	cout << "주문 전 색상을 선택하세요 : ";
+	string color;
+	cin >> color;
+	CCar cCar(color); //객체생성(정적할당) //생성자나 소멸자가 외부에서 접근불가면 생성불가.
 	CCar cCarA("blue");
 	CCar arrCar[3];
 	//C++의 경우: 객체 == 인터페이스(동적할당이든 정적할당이든 메모리가 할당되면 객체이며 인스턴스다)
@@ -103,13 +113,13 @@ void CarMain()
 	CCar* pCar = new CCar("green");//객체: 생성자가 외부에서 접근불가능하면 생성불가.
 	CCar& refCar = cCar;
 	pCar->Display();
-	//cCar.m_strColor = "red"; //지나가던 행인이 색을 바꿀수있다.(이러한 행위는 법에 접촉된다)
+	//cCar.m_strColor = "red"; //지나가던 행인이 색을 바꿀수있다. (이러한 행위는 법에 접촉된다)
 	cCar.SetColor("red"); //주인에게 허락받아서 색상을 변경한다.
 	cCar.Accelerator();
 	cCar.Display();
 	cCar.Break();
 	cCar.Display();
-	delete pCar; //소멸자가 외부에서접근불가능하면 지울수없음.
+	delete pCar; //소멸자가 외부에서 접근불가능하면 지울수없음. <-????
 	cout << "CarMain End" << endl;
 }
 
@@ -160,7 +170,8 @@ void main()
 {
 	cout << "Main Start" << endl;
 	//g_nData++;
-	//CarMain();
-	ClassTestMain();
+	CarMain();
+	//ClassTestMain();
+	//CarInterfaceMain();
 	cout << "Main End" << endl;
 }
