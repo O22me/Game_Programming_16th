@@ -19,7 +19,7 @@ int main(void) {
 	bool escape = false;
 	while (!escape) {
 		printWay();
-		scanf("%d", &player_select);
+		scanf_s("%d", &player_select);
 		switch (player_select)
 		{
 		case 1: 

@@ -21,18 +21,18 @@ void VectorMain()
 	vector<int> container(1);//컨테이너생성시 크기를 지정가능하다.
 	container[0] = 10;
 	for (int i = 0; i < container.size(); i++)
-		cout << "[" << i << "]" << container[i] << ",";
+		cout << "[" << i << "] = " << container[i] << ",";
 	cout << endl;
 	container.resize(3); //배열의 크기를 지정한다.
 	for (int i = 0; i < container.size(); i++)
-		cout << "[" << i << "]" << container[i] << ",";
+		cout << "[" << i << "] = " << container[i] << ",";
 	cout << endl;
 	//1.추가 2.삽입 3.삭제 4.모두삭제
 	container.push_back(99); //추가
 	//container.push_front(100); //배열은 앞을 추가하면 비효율적이다.
 	container[1] = 20;
 	for (int i = 0; i < container.size(); i++)
-		cout << "[" << i << "]" << container[i] << ",";
+		cout << "[" << i << "] = " << container[i] << ",";
 	cout << endl;
 	vector<int>::iterator it = container.begin();//반복자: 원소에 접근하는것.
 	cout << "begin+2:" << *(it + 2) << endl;//포인터연산을 이용하여 랜덤접근가능하다.
@@ -42,16 +42,16 @@ void VectorMain()
 	container.insert(it, 49); //삽입할 노드를 모르는 경우는 배제한다.
 	//순차접근
 	for (it = container.begin(); it != container.end(); it++)
-		cout << "[" << &*it << "]" << *it << ",";
+		cout << "[" << &*it << "] = " << *it << ",";
 	cout << endl;
 	it = container.begin();
 	container.erase(it); //삭제
 	container.pop_back(); //맨뒤삭제
 	for (it = container.begin(); it != container.end(); it++)
-		cout << "[" << &*it << "]" << *it << ",";
+		cout << "[" << &*it << "] = " << *it << ",";
 	container.clear(); //모두삭제
 	for (it = container.begin(); it != container.end(); it++)
-		cout << "[" << &*it << "]" << *it << ",";
+		cout << "[" << &*it << "] = " << *it << ",";
 }
 //연결리스트
 //1.데이터는 순차접근만 가능하다.(랜덤x)
@@ -236,7 +236,7 @@ void HashMapMain()
 	cout << mapDic["try"] << endl;
 	cout << mapDic["note"] << endl;
 }
-void main()
+int main()
 {
 	VectorMain();
 	//ListMain();
@@ -246,4 +246,5 @@ void main()
 	//PriorytyQueueMain();
 	//MapMain();
 	//SetMain();
+	return 0;
 }
