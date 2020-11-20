@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="20201109_BFS_DFS.cpp" />
     <ClCompile Include="20201117.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
