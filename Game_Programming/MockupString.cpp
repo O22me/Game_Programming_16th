@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <stdlib.h> //메모리 동적할당 헤더
 #include <crtdbg.h> //메모리 누수 탐지 헤더
 
@@ -17,6 +18,7 @@ void STDStringMain()
 	cout << strMsg2.c_str() << endl;
 	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str());
 	cout << "##### STDStringMain End######" << endl;
+	cout << endl;
 }
 
 namespace Mockup
@@ -34,9 +36,14 @@ namespace Mockup
 			strcpy(pStr, str);
 			cout << "FakeString[" << this << "]:" << (int)pStr << endl;
 		}
+		//복사생성자: 자기자신의 객체를 매개변수로 받는 생성자
 		string(string& str)
 		{
-			pStr = str.pStr;
+			//pStr = str.pStr;
+			//1. 동적문자열을 할당한다.
+			int nSize = strlen(str.pStr) + 1;
+			//2. 동적문자열에 기존 문자열을 복사한다.
+			strcpy(pStr, str.pStr);
 			cout << "FakeString Copy[" << this << "]:" << (int)pStr << endl;
 		}
 		//생성자에서 동적할당하였으므로 반드시 소멸자에서 동적할당된 객체를 정리한다.
@@ -65,6 +72,7 @@ void MockupStringMain()
 	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str());
 	cout << srtCopyMsg.c_str() << endl;
 	cout << "##### FakeStringMain End######" << endl;
+	cout << endl;
 }
 
 void main()

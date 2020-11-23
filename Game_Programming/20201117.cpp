@@ -98,8 +98,8 @@ class TV
 {
 	//멤버 변수
 	bool m_onoff;
-	int m_channel;
-	int m_volume;
+	int m_channel = 0;
+	int m_volume = 0;
 	string m_input_port;
 	const int max_channel; //최대 채널수 제한
 public:
@@ -157,13 +157,13 @@ public:
 		return m_input_port;
 	}
 	//현 상태 출력
-	void Display()
+	void Display() //현 상태 출력
 	{
 		cout << "Channel : " << m_channel << endl;
 		cout << "Volume : " << m_volume << endl;
 		cout << "Input Port : " << m_input_port << endl;
 	}
-	~TV()
+	~TV() //소멸자
 	{
 		Display();
 		m_onoff = false;

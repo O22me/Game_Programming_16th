@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="20201117.cpp">
+    <ClCompile Include="MockupString.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
