@@ -153,13 +153,14 @@ void SwapCarMain()
 
 //TV 클래스를 작성하고 TV룰 조작하듯 클래스를 활용하기
 //TV 조작 : 전원, 입력방식, 채널설정, 볼륨설정
-class TV
+class TV //TV그 자체
 {
 	//멤버 변수
 	bool m_onoff;
 	int m_channel = 0;
 	int m_volume = 0;
 	string m_input_port;
+	string model_name;
 	const int max_channel; //최대 채널수 제한
 public:
 	//기본생성자
@@ -174,6 +175,11 @@ public:
 	TV(string input_port) : max_channel(100)
 	{
 		m_input_port = input_port;
+	}
+	//이름 설정 함수
+	void SetName(string name)
+	{
+		model_name = name;
 	}
 	//전원관련 함수
 	void SetPower()
@@ -224,8 +230,8 @@ public:
 	}
 	~TV() //소멸자
 	{
-		Display();
 		m_onoff = false;
+		Display();
 		cout << endl;
 		cout << "Power : " << m_onoff << endl;
 	}
@@ -270,6 +276,11 @@ void TVInterface()
 		else cout << "Wrong input!" << endl;
 	}
 	cout << "##### TV control end #####" << endl;
+}
+//TV구매 : 판매되는 TV등록, TV구매, 판매된 TV삭제
+void TVselling()
+{
+
 }
 //자동차구매 -> 계약서작성(옵션) -> 생산 -> 배달
 void CarMain()
@@ -360,9 +371,9 @@ void main()
 	cout << "Main Start" << endl;
 	//g_nData++;
 	//CarMain();
-	SwapCarMain();
+	//SwapCarMain();
 	//ClassTestMain();
 	//CarInterfaceMain();
-	//TVInterface();
+	TVInterface();
 	cout << "Main End" << endl;
 }
