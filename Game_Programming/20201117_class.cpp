@@ -278,9 +278,27 @@ void TVInterface()
 	cout << "##### TV control end #####" << endl;
 }
 //TV구매 : 판매되는 TV등록, TV구매, 판매된 TV삭제
+void PrintMenu()
+{
+	cout << "1. TV 등록" << endl;
+	cout << "2. TV 구매" << endl;
+	cout << "3. TV 등록삭제" << endl;
+	cout << "4. EXIT" << endl;
+}
 void TVselling()
 {
+	cout << "##### TV Selling start #####" << endl;
 
+	bool exit = false;
+	int input_number = 0;
+	while (!exit)
+	{
+		PrintMenu();
+		cin >> input_number;
+		
+	}
+
+	cout << "##### TV Selling end #####" << endl;
 }
 //자동차구매 -> 계약서작성(옵션) -> 생산 -> 배달
 void CarMain()

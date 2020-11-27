@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="20201126_template.cpp">
+    <ClCompile Include="20201127_heritage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
