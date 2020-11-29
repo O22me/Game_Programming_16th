@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <stdlib.h> //메모리 동적할당 헤더
 #include <crtdbg.h> //메모리 누수 탐지 헤더
 
@@ -12,11 +13,12 @@ void STDStringMain()
 	string strMsg2("DataTest"); //생성자
 	string srtCopyMsg = strMsg; //복사생성자
 
-	cout << strMsg.c_str() << endl; //const char*를 리턴하는 함수
-	printf("%d:%s\n", strMsg.c_str(), strMsg.c_str());
+	cout << strMsg.c_str() << endl; //c_str() : const char*를 리턴하는 함수
+	printf("[%d:%s] \n", strMsg.c_str(), strMsg.c_str());
 	cout << strMsg2.c_str() << endl;
-	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str());
+	printf("[%d:%s] \n", strMsg2.c_str(), strMsg2.c_str());
 	cout << "##### STDStringMain End######" << endl;
+	cout << endl;
 }
 
 namespace Mockup
@@ -26,21 +28,27 @@ namespace Mockup
 		char* pStr; //동적할당된 문자열의 주소를 저장할 포인터
 	public:
 		//생성자에서 동적할당된 메모리는 객체가 소멸될때 호출되어야한다.
-		string(const char* str)
+		string(const char* str) //생성자
 		{
 			//매개변수로 받은 문자열을 동적할당(문자열의 길이 +1 만큼)된 문자열에 포인터에 저장하고,
-			pStr = new char[strlen(str) + 1];
+			pStr = new char[strlen(str) + 1]; //소멸될 메모리. <-중요
 			//동적할당된메모리에 매개변수의 문자열을 복사한다.
 			strcpy(pStr, str);
-			cout << "FakeString[" << this << "]:" << (int)pStr << endl;
+			cout << "FakeString[" << this << "]:" << (int)pStr << endl; 
 		}
-		string(string& str)
+		//복사생성자: 자기자신의 객체를 매개변수로 받는 생성자
+		string(string& str) //복사생성자
 		{
-			pStr = str.pStr;
+			//pStr = str.pStr;
+			//1. 동적문자열을 할당한다.
+			int nSize = strlen(str.pStr) + 1;
+			//2. 동적문자열에 기존 문자열을 복사한다.
+			pStr = new char[nSize];
+			strcpy(pStr, str.pStr);
 			cout << "FakeString Copy[" << this << "]:" << (int)pStr << endl;
 		}
 		//생성자에서 동적할당하였으므로 반드시 소멸자에서 동적할당된 객체를 정리한다.
-		~string()
+		~string() //소멸자
 		{
 			cout << "~FakeString[" << this << "]:" << (int)pStr << endl;
 			delete[] pStr;
@@ -60,11 +68,12 @@ void MockupStringMain()
 	Mockup::string srtCopyMsg = strMsg; //복사생성자
 
 	cout << strMsg.c_str() << endl; //const char*를 리턴하는 함수
-	printf("%d:%s\n", strMsg.c_str(), strMsg.c_str());
+	printf("[%d:%s] \n", strMsg.c_str(), strMsg.c_str());
 	cout << strMsg2.c_str() << endl;
-	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str());
+	printf("[%d:%s] \n", strMsg2.c_str(), strMsg2.c_str());
 	cout << srtCopyMsg.c_str() << endl;
 	cout << "##### FakeStringMain End######" << endl;
+	cout << endl;
 }
 
 void main()
