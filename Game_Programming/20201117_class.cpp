@@ -295,7 +295,10 @@ void TVselling()
 	{
 		PrintMenu();
 		cin >> input_number;
-		
+		switch (input_number)
+		{
+		case 1: 
+		}
 	}
 
 	cout << "##### TV Selling end #####" << endl;
