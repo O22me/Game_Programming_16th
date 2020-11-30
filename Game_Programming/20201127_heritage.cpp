@@ -9,17 +9,12 @@ protected:
 	int m_speed;
 	int m_seater;
 public:
-	Vehicle()
-	{
-		m_gear = 0;
-		m_speed = 0;
-		m_seater = 1;
-	}
-	Vehicle(int seater, int gear, int speed) //扁夯积己磊
+	Vehicle(int gear = 0, int speed = 0, int seater = 1) //扁夯积己磊
 	{
 		m_gear = gear;
 		m_speed = speed;
 		m_seater = seater;
+		cout << "Vehicle(积己) : [" << this << "]" << endl;
 	}
 	void Accelarator() //啊加
 	{
@@ -39,34 +34,51 @@ public:
 		cout << "Speed : \t" << m_speed << endl;
 		cout << "Seat :  \t" << m_seater << endl;
 	}
+	~Vehicle()
+	{
+		cout << "Vehicle(家戈) : [" << this << "]" << endl;
+	}
+};
+class Engine : public Vehicle
+{
+protected:
+	string m_nEngine;
 };
 class bicycle : public Vehicle
 {
-	int m_engine = 0;
 public:
-	bicycle(int seats, int engine)
+	bicycle(int gear = 0, int speed = 0, int seater = 1)
 	{
-		m_seater = seats;
-		m_engine = engine;
+		m_gear = gear;
+		m_speed = speed;
+		m_seater = seater;
 	}
 };
 class motorcycle : public Vehicle
 {
-	string m_engine;
-	motorcycle(string engine_name = NULL)
+	
+};
+class bus : public Engine
+{
+
+};
+class truck : public Engine
+{
+	int carry_capacity;
+	truck(string engine_name = "truck_engine", int capacity = 0)
 	{
-		m_engine = engine_name;
+		m_nEngine = engine_name;
+		carry_capacity = capacity;
 	}
 };
-class bus : public Vehicle
+int main()
 {
+	bicycle bike(10, 10, 2);
+	bike.Display();
 
-};
-class truck
-{
-
-};
-void main()
-{
-	return;
+	truck cyber;
+	cyber.SetGear(2);
+	cyber.Accelarator();
+	cyber.Display();
+	return 0;
 }
