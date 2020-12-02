@@ -9,11 +9,9 @@ protected:
 	int m_speed;
 	int m_seater;
 public:
-	Vehicle(int gear = 0, int speed = 0, int seater = 1) //扁夯积己磊
+	Vehicle(int gear = 0, int speed = 0, int seater = 1)
+		: m_gear(gear), m_speed(speed), m_seater(seater)
 	{
-		m_gear = gear;
-		m_speed = speed;
-		m_seater = seater;
 		cout << "Vehicle(积己) : [" << this << "]" << endl;
 	}
 	void Accelarator() //啊加
@@ -42,7 +40,11 @@ public:
 class Engine : public Vehicle
 {
 protected:
-	string m_nEngine;
+	int m_nEngine;
+public:
+	Engine() : m_nEngine(0)
+	{
+	}
 };
 class bicycle : public Vehicle
 {
@@ -56,29 +58,50 @@ public:
 };
 class motorcycle : public Vehicle
 {
-	
+public:
+	motorcycle(int gear = 0, int speed = 0, int seater = 1)
+	{
+		m_gear = gear;
+		m_speed = speed;
+		m_seater = seater;
+	}
 };
 class bus : public Engine
 {
-
+public:
+	bus(int engine, int gear = 0, int speed = 0, int seater = 15)
+	{
+		m_nEngine = engine;
+		m_gear = gear;
+		m_speed = speed;
+		m_seater = seater;
+		cout << "Bus(积己) : [" << this << "]" << endl;
+	}
+	~bus()
+	{
+		cout << "Bus(家戈) : [" << this << "]" << endl;
+	}
 };
 class truck : public Engine
 {
+protected:
 	int carry_capacity;
-	truck(string engine_name = "truck_engine", int capacity = 0)
+public:
+	truck(int engine = 0, int capacity = 1000)
 	{
-		m_nEngine = engine_name;
+		m_nEngine = engine;
 		carry_capacity = capacity;
+		cout << "Truck(积己) : [" << this << "]" << endl;
+	}
+	~truck()
+	{
+		cout << "Truck(家戈) : [" << this << "]" << endl;
 	}
 };
 int main()
 {
 	bicycle bike(10, 10, 2);
 	bike.Display();
-
-	truck cyber;
-	cyber.SetGear(2);
-	cyber.Accelarator();
-	cyber.Display();
+	bike.Accelarator();
 	return 0;
 }

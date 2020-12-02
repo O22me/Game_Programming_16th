@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="20201130_Radio.h" />
     <ClInclude Include="Shape.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="20201127_heritage.cpp" />
     <ClCompile Include="Polymorphism.cpp" />
   </ItemGroup>
   <ItemGroup>

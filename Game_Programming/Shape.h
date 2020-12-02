@@ -6,9 +6,9 @@ using namespace std;
 namespace Inheritance
 {
 	//1차원이라면 객체로 볼수없다.
-	struct Vector//객체: 벡터(2차원 위치)
+	struct s_Vector//객체: 벡터(2차원 위치) : 좌표
 	{
-		//public:
+		//public: //구조체의 경우 기본적으로 public으로 설정된다.
 		float x;
 		float y;
 		void Print(const char* msg)
@@ -20,11 +20,11 @@ namespace Inheritance
 	class Shape //도형:
 	{
 	public:
-		Shape()
+		Shape() //생성자
 		{
 			cout << "Shape[" << this << "]" << endl;
 		}
-		~Shape()
+		~Shape() //소멸자
 		{
 			cout << "~Shape[" << this << "]" << endl;
 		}
@@ -39,10 +39,10 @@ namespace Inheritance
 	//실체화: 추상클래스를 상속받아 구현하는 클래스 (존재하지 않는 shape의 형태를 상속을 통해서 지정하는 것.
 	class Circle : public Shape
 	{
-		Vector vPos;
+		s_Vector vPos;
 		float fRadius;
 	public:
-		Circle(Vector pos, float rad)
+		Circle(s_Vector pos, float rad) //생성자
 		{
 			cout << "Circle[" << this << "]" << endl;
 			vPos = pos;
@@ -50,7 +50,7 @@ namespace Inheritance
 			
 			cout << "Rad:" << fRadius << endl;
 		}
-		~Circle()
+		~Circle() //소멸자
 		{
 			cout << "~Circle[" << this << "]()" << endl;
 		}
@@ -66,15 +66,24 @@ namespace Inheritance
 	};
 	class Triangle : public Shape
 	{
-		Vector vA;
-		Vector vB;
-		Vector vC;
+		s_Vector vA;
+		s_Vector vB;
+		s_Vector vC;
 	public:
-		Triangle(Vector a, Vector b, Vector c) { cout << "TriAngle[" << this << "]" << endl; };
-		~Triangle() { cout << "TriAngle[" << this << "]" << endl; };
+		Triangle(s_Vector a, s_Vector b, s_Vector c)
+		{
+			cout << "Triangle[" << this << "]" << endl;
+			vA = a;
+			vB = b;
+			vC = c;
+		}
+		~Triangle()
+		{ 
+			cout << "Triangle[" << this << "]" << endl; 
+		}
 		void Draw()
 		{
-			cout << "RectAangle[" << this << "]::Draw()" << endl;
+			cout << "Rectaangle[" << this << "]::Draw()" << endl;
 			vA.Print("A:");
 			vB.Print("B:");
 			vC.Print("C:");
@@ -82,14 +91,14 @@ namespace Inheritance
 	};
 	class Rectangle : public Shape
 	{
-		Vector vTL;
-		Vector vTR;
-		Vector vBL;
-		Vector vBR;
+		s_Vector vTL; //좌상단
+		s_Vector vTR; //우상단
+		s_Vector vBL; //좌하단
+		s_Vector vBR; //좌상단
 	public:
-		Rectangle(Vector tl, Vector tr, Vector bl, Vector br)
+		Rectangle(s_Vector tl, s_Vector tr, s_Vector bl, s_Vector br)
 		{
-			cout << "RectAangle[" << this << "]" << endl;
+			cout << "Rectangle[" << this << "]" << endl;
 			vTL = tl;
 			vTR = tr;
 			vBL = bl;
@@ -97,7 +106,7 @@ namespace Inheritance
 		}
 		~Rectangle()
 		{
-			cout << "~RectAangle[" << this << "]()" << endl;
+			cout << "~Rectangle[" << this << "]()" << endl;
 		}
 		void Draw()
 		{
@@ -114,11 +123,11 @@ namespace Inheritance
 	void ShapeMain()
 	{
 		Shape cShape;
-		Circle cCrilce({ 1,1 }, 1);
+		Circle cCircle({ 1, 1 }, 1);
 		cShape.Draw();
 		cShape.Shape::Draw();
-		cCrilce.Draw();
-		cCrilce.Shape::Draw();
+		cCircle.Draw();
+		cCircle.Shape::Draw();
 	}
 	//프로그램 실행중에 선택하여 모양을 여러개를 그리려면 어떻게해야하는가?//동적으로 메모리를 할당받아야한다.
 	void ShapeArrayMain()

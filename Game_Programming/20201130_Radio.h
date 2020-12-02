@@ -2,8 +2,8 @@
 
 class Speaker
 {
-	bool m_bPower;
-	float m_fVolume;
+	bool m_bPower; //전원 On/Off
+	float m_fVolume; //볼륨 Up/Down
 public:
 	Speaker()
 	{
@@ -48,7 +48,8 @@ class RadioIs_a : public Speaker, public Antena
 
 };
 //has-a : 각 객체를 감싸는 함수를 만들어야 한다.
-//
+//만들 때 내부의 부품을 더 좋은 부품으로 사용할 수 있다.
+//(현실에 라디오라면 직접 인터페이스를 내부에 보드에 연결하므로 여기에 해당될 수도 있다.)
 class RadioHas_a
 {
 	//has-a 방식
@@ -60,7 +61,30 @@ public:
 		m_cSpeaker = speaker;
 		m_cAntena = antena;
 	}
-
+	void SwitchOn()
+	{
+		m_cSpeaker->SwitchOn();
+	}
+	void SwitchOff()
+	{
+		m_cSpeaker->SwitchOff();
+	}
+	void VolumeUp()
+	{
+		m_cSpeaker->VolumeUp();
+	}
+	void VolumeDown()
+	{
+		m_cSpeaker->VolumeDown();
+	}
+	void HzUp()
+	{
+		m_cAntena->HzUp();
+	}
+	void HzDown()
+	{
+		m_cAntena->HzDown();
+	}
 };
 
 void RadioMain()
