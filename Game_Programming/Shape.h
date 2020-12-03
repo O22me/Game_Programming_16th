@@ -24,7 +24,9 @@ namespace Inheritance
 		{
 			cout << "Shape[" << this << "]" << endl;
 		}
-		~Shape() //소멸자
+		//가상소멸자 : 부모포인터에서 소멸자가 호출되어야 할 시에 사용
+
+		virtual ~Shape() 
 		{
 			cout << "~Shape[" << this << "]" << endl;
 		}
