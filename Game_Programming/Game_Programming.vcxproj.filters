@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="20201203_pizza.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="20201203.cpp">
+    <ClCompile Include="3rd_Class\TV_BuyandSell.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,8 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="20201203.cpp" />
-    <ClCompile Include="20201203_pizza.cpp" />
+    <ClCompile Include="3rd_Class\TV_BuyandSell.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
