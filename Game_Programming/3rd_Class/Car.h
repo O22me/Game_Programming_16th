@@ -12,10 +12,10 @@ protected: //자식은 접근가능하고 외부에서 접근불가.
 public:
 	Vehicle(int seat = 1) 
 	{
-		cout << "Vihicle["<<this<<"]" << endl;
+		cout << "Vehicle["<<this<<"]" << endl;
 		m_nSeats = seat;
 	}
-	~Vehicle() { cout << "~Vihicle[" << this << "]" << endl; }
+	~Vehicle() { cout << "~Vehicle[" << this << "]" << endl; }
 
 	void Accel() { m_nSpeed++; }
 	void Break() { m_nSpeed--; }

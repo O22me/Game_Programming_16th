@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <cstring>
 
 using namespace std;
 
@@ -9,44 +9,28 @@ using namespace std;
 //※색상은 차를 주문할때 정할수있다.
 
 //클래스: 추상화된 객체를 클래스로 설계도를 만들수있다.
-//구조체 <-> 클래스 : 기본멤버 public / private
+//기본멤버(자동): 구조체는 public, 클래스는 private
 class Car
 {
 	//접근제어자: 클래스에서 변경될 속성을 제한한다.(만들 대상에 따라 멤버에서 설정은 달라질수있다)
-//private: //클래스외부에 접근을 막는다.
-	//멤버변수
+	//접근제어자로 private, protected, public이 있다.
+private:
 	int m_nSpeed = 0;
 	int m_nGear = 0;
 	string m_strColor;
 	const int MaxSpeed;
 	static int m_nCount; //정적멤버함수의 선언, 모든 클래스의 객체가 공유된다.
-
-	//멤버함수
-public: //클래스외부에서 접근을 가능하게 만든다.
-	//생성자: 객체가 생성될때 호출되는 함수.
-	//리턴값없음. 매개변수있음. 디폴트매개변수가능. 오버로딩가능.
-	/*
-	CCar() :MaxSpeed(100) //<-기본생성자
-	{
-		m_nSpeed = 0;
-		m_nGear = 0;
-	}
-	*/
-	//private: //생성자가 접근이 안되면 메모리를 외부에서 할당할수없다.
-public://초기화 목록: 멤버변수에 초기값을 설정함.
-	//this는 객체의 주소값.
-	Car(string color = "gray", int speed = 0, int gear = 0) :MaxSpeed(100) //함수의 오버로딩<-기본생성자(괄호 내 string 이 정해져있음)
+public:
+	Car(string color = "gray", int speed = 0, int gear = 0)
+		: m_strColor(color), m_nSpeed(speed), m_nGear(gear), MaxSpeed(100) //이니셜라이저를 이용한 const 변수 초기화(필수)
 	{
 		cout << "Car[" << m_nCount << "]" << this << endl;
-		m_strColor = color;
-		m_nSpeed = speed;
-		m_nGear = gear;
 		m_nCount++;
 		cout << "m_nCount : " << m_nCount << endl;
 	}
-	Car(const Car& car) :MaxSpeed(100) //복사생성자
+	//복사생성자
+	Car(const Car& car) :MaxSpeed(100)
 	{
-		//*this = car;
 		//memcpy(this, &car, sizeof(CCar)); //문자열객체는 메모리복사가 불가능하다.
 		this->m_nSpeed = car.m_nSpeed;
 		this->m_nGear = car.m_nGear;
@@ -59,20 +43,14 @@ public://초기화 목록: 멤버변수에 초기값을 설정함.
 		*this = car;
 		cout << "Car" << this << "=" << &car << endl;
 	}
-
-	//private: //객체가 소멸자에서 
-		//소멸자: 객체가 소멸할때 호출되는 함수.
-		//리턴값없음. 매개변수X. 오버로딩X
 	//private : //정적할당(객체생성불가, 동적할당은 가능 그러나 객체삭제불가(메모리누수..)
 	~Car()
 	{
 		m_nGear = 0;
 		cout << "~CCar[" << this << "]:" << m_strColor << endl;
-		m_nCount--;
+		m_nCount--; //정적멤버함수
 		cout << "m_nCount : " << m_nCount << endl;
 	}
-
-	//void SetSpeed(int speed) { m_nSpeed = speed; } //물리법칙상 변경이 불가능하다.
 	void Accelerator()
 	{
 		m_nSpeed++;
@@ -93,7 +71,7 @@ public://초기화 목록: 멤버변수에 초기값을 설정함.
 	{
 		m_strColor = color;
 	}
-	void Display() //자동차 계기판
+	void Display()
 	{
 		cout << "Color:" << m_strColor << endl;
 		cout << "Speed:" << m_nSpeed << endl;
@@ -150,39 +128,34 @@ void SwapCarMain()
 	cCarBlue.Display();
 }
 
-
 //TV 클래스를 작성하고 TV룰 조작하듯 클래스를 활용하기
 //TV 조작 : 전원, 입력방식, 채널설정, 볼륨설정
 class TV //TV그 자체
 {
 	//멤버 변수
+private:
 	bool m_onoff;
 	int m_channel = 0;
 	int m_volume = 0;
 	string m_input_port;
-	string model_name;
+	string m_model_name;
 	const int max_channel; //최대 채널수 제한
 public:
-	//기본생성자
-	TV(bool onoff = false) : max_channel(100)
+	//생성자 //const 변수는 반드시 이니셜라이저로 초기화해야함.
+	TV(bool onoff = false, int channel = 0, int volume = 0, string input_port = "NONE")
+		: m_onoff(onoff), m_channel(channel), m_volume(volume), m_input_port(input_port), max_channel(100)
 	{
-		m_onoff = onoff;
-		m_channel = 0;
-		m_volume = 0;
-		m_input_port = "HDMI";
 	}
-	//생성자
-	TV(string input_port) : max_channel(100)
+	TV(string name = "NONE") : m_model_name(name), max_channel(100) 
 	{
-		m_input_port = input_port;
 	}
 	//이름 설정 함수
 	void SetName(string name)
 	{
-		model_name = name;
+		m_model_name = name;
 	}
 	//전원관련 함수
-	void SetPower()
+	void SwitchPower()
 	{
 		m_onoff = !m_onoff;
 	}
@@ -191,24 +164,24 @@ public:
 	{
 		m_channel = channel;
 	}
-	void UpChannel()
+	void ChannelUp()
 	{
 		m_channel++;
 	}
-	void DownChannel()
+	void ChannelDown()
 	{
 		m_channel--;
 	}
-	int GetChannel()
+	int GetChannel() //채널번호 반환
 	{
 		return m_channel;
 	}
 	//Volume 관련 호출함수
-	void UpVolume()
+	void VolumeUp()
 	{
 		m_volume++;
 	}
-	void DownVolume()
+	void VolumeDown()
 	{
 		m_volume--;
 	}
@@ -222,8 +195,9 @@ public:
 		return m_input_port;
 	}
 	//현 상태 출력
-	void Display() //현 상태 출력
+	void Display()
 	{
+		cout << "[모델명: " << m_model_name << "]" << endl;
 		cout << "Channel : " << m_channel << endl;
 		cout << "Volume : " << m_volume << endl;
 		cout << "Input Port : " << m_input_port << endl;
@@ -247,10 +221,10 @@ void TVInterface()
 		cout << "You can choose ChannelUp/Down/Set VolumeUp/Down Inputport, Display and turnoff" << endl;
 		cin >> input_port;
 		if (input_port == "ChannelUp") {
-			tv.UpChannel();
+			tv.ChannelUp();
 		}
 		else if (input_port == "ChannelDown") {
-			tv.DownChannel();
+			tv.ChannelDown();
 		}
 		else if (input_port == "ChannelSet") {
 			int channel;
@@ -259,10 +233,10 @@ void TVInterface()
 			tv.SetChannel(channel);
 		}
 		else if (input_port == "VolumeUp") {
-			tv.UpVolume();
+			tv.VolumeUp();
 		}
 		else if (input_port == "VolumeDown") {
-			tv.DownVolume();
+			tv.VolumeDown();
 		}
 		else if (input_port == "Inputport") {
 			string input;
