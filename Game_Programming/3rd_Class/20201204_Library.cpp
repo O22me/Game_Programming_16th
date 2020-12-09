@@ -100,7 +100,7 @@ namespace Reference
 		Book* BorrowBook(int n)
 		{
 			Book* pBook = BookShlef[n];
-			BookShlef[n] = NULL;
+			BookShlef[n] = NULL; //빌려주고 NULL처리.
 			return pBook;
 		}
 	};
