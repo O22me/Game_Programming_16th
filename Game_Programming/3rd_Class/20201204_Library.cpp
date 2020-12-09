@@ -7,16 +7,17 @@ namespace Value
 {
 	class Library
 	{
-		Book BookShlef[100];
+	private:
+		Book BookShelf[100];
 		Book EmptyBook;
 	public:
-		Book GetBook(int n) { return BookShlef[n]; }
-		Book SetBook(Book book, int idx) { return BookShlef[idx] = book; }
+		Book GetBook(int n) { return BookShelf[n]; }
+		Book SetBook(Book book, int idx) { return BookShelf[idx] = book; }
 
 		Book BorrowBook(int n)
 		{
-			Book cBook = BookShlef[n];
-			BookShlef[n] = EmptyBook;
+			Book cBook = BookShelf[n];
+			BookShelf[n] = EmptyBook;
 			return cBook;
 		}
 	};
@@ -24,8 +25,8 @@ namespace Value
 	class Book
 	{
 	public:
-		int Number;
-		string Title;
+		int Number;	//책 번호
+		string Title;	//책 제목
 	};
 
 	class Borrower
@@ -59,7 +60,7 @@ namespace Value
 		}
 	};
 
-	class Lap
+	class Lap //연구소
 	{
 		string strNAme;
 		Student cChief;
@@ -69,7 +70,6 @@ namespace Value
 		{
 
 		}
-
 		void SetChief(Student student)
 		{
 			cChief = student;
