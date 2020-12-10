@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3rd_Class\SingleTon.cpp">
+    <ClCompile Include="4th_Class\SingleTon.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

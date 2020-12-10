@@ -12,7 +12,7 @@ class SingleObject
 	{
 	}
 public:
-	SingleObject* GetInstance()
+	static SingleObject* GetInstance() //static 선언을 통해 객체생성없이 함수 접근을 하였다.
 	{
 		if (m_pInstance == NULL)
 			m_pInstance = new SingleObject();

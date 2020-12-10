@@ -12,13 +12,17 @@ private:
 public:
 	bicycle(int _seat) : gear(0), speed(0), seat(_seat)
 	{
-		cout << "bicycle(int _seat = 0) = Constructor : " << this << endl;
+		cout << "bicycle.Constructor : \t\t" << this << endl;
 	}
 	void Accel() { speed++; }
 	void Break() { speed--; }
 	void SetGear(int gear)
 	{
 		this->gear = gear;
+	}
+	~bicycle()
+	{
+		cout << "~bicycle.Destructor : \t\t" << this << endl;
 	}
 };
 
@@ -35,6 +39,7 @@ public:
 	{
 		engine = new char[strlen(name) + 1];
 		strcpy_s(engine, strlen(name) + 1, name);
+		cout << "Motorcycle.Constructor : \t" << this << endl;
 	}
 	void Accel() { speed++; }
 	void Break() { speed--; }
@@ -45,6 +50,7 @@ public:
 	~Motorcycle()
 	{
 		delete[] engine;
+		cout << "~Motorcycle.Destructor : \t" << this << endl;
 	}
 };
 // class Bus class Motorcycle이랑 동일하므로 생략
@@ -63,6 +69,7 @@ public:
 	{
 		engine = new char[strlen(engine_name) + 1];
 		strcpy_s(engine, strlen(engine_name) + 1, engine_name);
+		cout << "Truck.Constructor : \t\t" << this << endl;
 	}
 	void Accel() { speed++; }
 	void Break() { speed--; }
@@ -73,5 +80,14 @@ public:
 	~Truck()
 	{
 		delete[] engine;
+		cout << "~Truck.Destructor : \t\t" << this << endl;
 	}
 };
+
+int main(void)
+{
+	bicycle bike(1);
+	Motorcycle motor(2, "Bull");
+	Truck Cybertruck(4, "Perfect", 1000);
+	return 0;
+}
